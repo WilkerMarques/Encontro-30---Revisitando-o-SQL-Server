@@ -1,0 +1,27 @@
+CREATE TABLE FuncionariosPorDepartamento(
+DepartamentoPorFuncionarioID INT NOT NULL IDENTITY(1,1),
+FuncionarioID INT NOT NULL ,
+DepartamentoID INT NOT NULL,
+DataInicial DATETIME NULL,
+DataFinal DATETIME NULL,
+CONSTRAINT PK_FuncionariosPorDepartamento PRIMARY KEY (DepartamentoPorFuncionarioID),
+CONSTRAINT FK_FuncionariosPorDepartamento_Funcionario FOREIGN KEY (FuncionarioID) REFERENCES dbo.Funcionario(FuncionarioID),
+CONSTRAINT FK_FuncionariosPorDepartamento_Departamento FOREIGN KEY (DepartamentoID) REFERENCES dbo.Departamento(DepartamentoID)
+)
+GO
+
+
+
+INSERT INTO FuncionariosPorDepartamento (FuncionarioID, DepartamentoID, DataInicial, DataFinal)
+	SELECT 
+	[funcid]
+      ,[deptoid]
+      ,[datainicial]
+      ,[datafinal]
+  FROM [CapacitacaoPSG2021H3].[dbo].[RAWDATA-funcionarios por deptos]
+	ORDER BY funcid
+go
+
+
+
+select * from FuncionariosPorDepartamento
